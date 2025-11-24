@@ -179,6 +179,101 @@
             text-decoration: underline;
         }
         
+        .password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .password-modal.active {
+            display: flex;
+        }
+        
+        .password-box {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .password-box h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        
+        .password-box p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .password-box input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        
+        .password-box input:focus {
+            outline: none;
+            border-color: #1976D2;
+        }
+        
+        .password-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .password-box button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .password-box .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .password-box .btn-submit:hover {
+            transform: scale(1.05);
+        }
+        
+        .password-box .btn-cancel {
+            background: #f5f7fa;
+            color: #333;
+        }
+        
+        .password-box .btn-cancel:hover {
+            background: #e8eaf0;
+        }
+        
+        .error-message {
+            color: #f44336;
+            font-size: 13px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+        
         @media (max-width: 768px) {
             h1 {
                 font-size: 32px;
@@ -259,7 +354,7 @@
                 </div>
                 <div class="button-group">
                     <a href="signatures/signature-john-doe.html" class="btn btn-primary" target="_blank">View Live Demo</a>
-                    <a href="signatures/signature-john-doe.html" class="btn btn-secondary" download>Download HTML</a>
+                    <button onclick="downloadWithPassword('signatures/signature-john-doe.html', 'signature-john-doe.html')" class="btn btn-secondary">Download HTML</button>
                 </div>
             </div>
             
@@ -270,7 +365,7 @@
                 </div>
                 <div class="button-group">
                     <a href="signatures/signature-jane-smith.html" class="btn btn-primary" target="_blank">View Live Demo</a>
-                    <a href="signatures/signature-jane-smith.html" class="btn btn-secondary" download>Download HTML</a>
+                    <button onclick="downloadWithPassword('signatures/signature-jane-smith.html', 'signature-jane-smith.html')" class="btn btn-secondary">Download HTML</button>
                 </div>
             </div>
             
@@ -281,7 +376,7 @@
                 </div>
                 <div class="button-group">
                     <a href="signatures/signature-mike-johnson.html" class="btn btn-primary" target="_blank">View Live Demo</a>
-                    <a href="signatures/signature-mike-johnson.html" class="btn btn-secondary" download>Download HTML</a>
+                    <button onclick="downloadWithPassword('signatures/signature-mike-johnson.html', 'signature-mike-johnson.html')" class="btn btn-secondary">Download HTML</button>
                 </div>
             </div>
             
@@ -292,7 +387,7 @@
                 </div>
                 <div class="button-group">
                     <a href="signatures/signature-sarah-williams.html" class="btn btn-primary" target="_blank">View Live Demo</a>
-                    <a href="signatures/signature-sarah-williams.html" class="btn btn-secondary" download>Download HTML</a>
+                    <button onclick="downloadWithPassword('signatures/signature-sarah-williams.html', 'signature-sarah-williams.html')" class="btn btn-secondary">Download HTML</button>
                 </div>
             </div>
             
@@ -303,7 +398,7 @@
                 </div>
                 <div class="button-group">
                     <a href="signatures/signature-david-brown.html" class="btn btn-primary" target="_blank">View Live Demo</a>
-                    <a href="signatures/signature-david-brown.html" class="btn btn-secondary" download>Download HTML</a>
+                    <button onclick="downloadWithPassword('signatures/signature-david-brown.html', 'signature-david-brown.html')" class="btn btn-secondary">Download HTML</button>
                 </div>
             </div>
         </div>
@@ -313,5 +408,94 @@
             <p style="margin-top: 10px; opacity: 0.8;">Need customization? <a href="mailto:contact@company.com">Contact Us</a></p>
         </div>
     </div>
+    
+    <!-- Password Modal -->
+    <div id="passwordModal" class="password-modal">
+        <div class="password-box">
+            <h3>🔒 Password Required</h3>
+            <p>Please enter the password to download this file</p>
+            <input type="password" id="passwordInput" placeholder="Enter password" />
+            <div class="error-message" id="errorMessage">❌ Incorrect password. Please try again.</div>
+            <div class="password-buttons">
+                <button class="btn-cancel" onclick="closePasswordModal()">Cancel</button>
+                <button class="btn-submit" onclick="verifyPassword()">Download</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentFile = '';
+        let currentFilename = '';
+        
+        function downloadWithPassword(file, filename) {
+            currentFile = file;
+            currentFilename = filename;
+            document.getElementById('passwordModal').classList.add('active');
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('passwordInput').focus();
+        }
+        
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('active');
+            currentFile = '';
+            currentFilename = '';
+        }
+        
+        async function verifyPassword() {
+            const password = document.getElementById('passwordInput').value;
+            
+            try {
+                // Call Vercel serverless function to verify password
+                const response = await fetch('/api/download', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        password: password,
+                        file: currentFile
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    // Create blob from file content and download
+                    const blob = new Blob([data.content], { type: 'text/html' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = data.filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    closePasswordModal();
+                } else {
+                    document.getElementById('errorMessage').style.display = 'block';
+                    document.getElementById('passwordInput').value = '';
+                    document.getElementById('passwordInput').focus();
+                }
+            } catch (error) {
+                console.error('Download error:', error);
+                alert('Error downloading file. Please try again.');
+            }
+        }
+        
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verifyPassword();
+            }
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('passwordModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePasswordModal();
+            }
+        });
+    </script>
 </body>
 </html>
