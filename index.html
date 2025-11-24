@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Signature Demo Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 42px;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+            margin-bottom: 50px;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .signature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .signature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .signature-header {
+            margin-bottom: 20px;
+        }
+        
+        .signature-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1976D2;
+            margin-bottom: 8px;
+        }
+        
+        .signature-role {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f5f7fa;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e8eaf0;
+            border-color: #1976D2;
+            color: #1976D2;
+        }
+        
+        .features {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .features h2 {
+            color: #1976D2;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+        
+        .feature-icon {
+            font-size: 24px;
+            min-width: 24px;
+        }
+        
+        .feature-text {
+            flex: 1;
+        }
+        
+        .feature-text h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .feature-text p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+            
+            .signature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Professional Email Signatures</h1>
+        <p class="subtitle">Modern, Responsive & Outlook-Compatible</p>
+        
+        <div class="features">
+            <h2>✨ Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-text">
+                        <h3>Fully Responsive</h3>
+                        <p>Works perfectly on desktop, web, and mobile Outlook</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-text">
+                        <h3>Modern Design</h3>
+                        <p>Gradient backgrounds, rounded corners, and shadows</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🖼️</div>
+                    <div class="feature-text">
+                        <h3>Real Images</h3>
+                        <p>Professional icons and logo from reliable CDNs</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✅</div>
+                    <div class="feature-text">
+                        <h3>Email Compatible</h3>
+                        <p>Table-based layout with inline CSS for maximum compatibility</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔗</div>
+                    <div class="feature-text">
+                        <h3>Clickable Links</h3>
+                        <p>Email, phone, mobile, website, and LinkedIn links</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-text">
+                        <h3>Lightweight</h3>
+                        <p>Fast loading with optimized code structure</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="signature-grid">
+            <div class="signature-card">
+                <div class="signature-header">
+                    <div class="signature-title">John Doe</div>
+                    <div class="signature-role">Chief Executive Officer</div>
+                </div>
+                <div class="button-group">
+                    <a href="signatures/signature-john-doe.html" class="btn btn-primary" target="_blank">View Live Demo</a>
+                    <a href="signatures/signature-john-doe.html" class="btn btn-secondary" download>Download HTML</a>
+                </div>
+            </div>
+            
+            <div class="signature-card">
+                <div class="signature-header">
+                    <div class="signature-title">Jane Smith</div>
+                    <div class="signature-role">Chief Technology Officer</div>
+                </div>
+                <div class="button-group">
+                    <a href="signatures/signature-jane-smith.html" class="btn btn-primary" target="_blank">View Live Demo</a>
+                    <a href="signatures/signature-jane-smith.html" class="btn btn-secondary" download>Download HTML</a>
+                </div>
+            </div>
+            
+            <div class="signature-card">
+                <div class="signature-header">
+                    <div class="signature-title">Mike Johnson</div>
+                    <div class="signature-role">Sales Director</div>
+                </div>
+                <div class="button-group">
+                    <a href="signatures/signature-mike-johnson.html" class="btn btn-primary" target="_blank">View Live Demo</a>
+                    <a href="signatures/signature-mike-johnson.html" class="btn btn-secondary" download>Download HTML</a>
+                </div>
+            </div>
+            
+            <div class="signature-card">
+                <div class="signature-header">
+                    <div class="signature-title">Sarah Williams</div>
+                    <div class="signature-role">Marketing Manager</div>
+                </div>
+                <div class="button-group">
+                    <a href="signatures/signature-sarah-williams.html" class="btn btn-primary" target="_blank">View Live Demo</a>
+                    <a href="signatures/signature-sarah-williams.html" class="btn btn-secondary" download>Download HTML</a>
+                </div>
+            </div>
+            
+            <div class="signature-card">
+                <div class="signature-header">
+                    <div class="signature-title">David Brown</div>
+                    <div class="signature-role">Customer Success Manager</div>
+                </div>
+                <div class="button-group">
+                    <a href="signatures/signature-david-brown.html" class="btn btn-primary" target="_blank">View Live Demo</a>
+                    <a href="signatures/signature-david-brown.html" class="btn btn-secondary" download>Download HTML</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Modern HTML Email Signatures | Fully Customizable | Ready to Use</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Need customization? <a href="mailto:contact@company.com">Contact Us</a></p>
+        </div>
+    </div>
+</body>
+</html>
