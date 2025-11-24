@@ -1,7 +1,4 @@
-import fs from 'fs';
-import path from 'path';
-
-export default async function handler(req, res) {
+export default function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -21,10 +18,6 @@ export default async function handler(req, res) {
 
     // Get password from environment variable
     const correctPassword = process.env.DOWNLOAD_PASSWORD;
-    
-    console.log('Received password:', password);
-    console.log('Expected password:', correctPassword);
-    console.log('Match:', password === correctPassword);
 
     if (!correctPassword) {
       return res.status(500).json({ error: 'Password not configured on server' });
@@ -39,7 +32,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid file path' });
     }
 
-    // Read the file from the signatures directory
+    // For Vercel, we'll use dynamic import of fs
+    // This is a simpler approach that works better with Vercel's serverless functions
+    const fs = require('fs');
+    const path = require('path');
+    
     const filePath = path.join(process.cwd(), file);
     
     if (!fs.existsSync(filePath)) {

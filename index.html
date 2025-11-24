@@ -444,9 +444,10 @@
         
         async function verifyPassword() {
             const password = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
             
             try {
-                // Call Vercel serverless function to verify password
+                // Call the Vercel serverless function
                 const response = await fetch('/api/download', {
                     method: 'POST',
                     headers: {
@@ -457,11 +458,11 @@
                         file: currentFile
                     })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (response.ok && data.success) {
-                    // Create blob from file content and download
+                    // Create and trigger download
                     const blob = new Blob([data.content], { type: 'text/html' });
                     const url = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
@@ -473,13 +474,15 @@
                     document.body.removeChild(a);
                     closePasswordModal();
                 } else {
-                    document.getElementById('errorMessage').style.display = 'block';
+                    errorMessage.textContent = data.error || 'Invalid password';
+                    errorMessage.style.display = 'block';
                     document.getElementById('passwordInput').value = '';
                     document.getElementById('passwordInput').focus();
                 }
             } catch (error) {
                 console.error('Download error:', error);
-                alert('Error downloading file. Please try again.');
+                errorMessage.textContent = 'Error connecting to server. Please try again.';
+                errorMessage.style.display = 'block';
             }
         }
         
