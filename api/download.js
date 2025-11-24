@@ -20,7 +20,15 @@ export default async function handler(req, res) {
     const { password, file } = req.body;
 
     // Get password from environment variable
-    const correctPassword = process.env.DOWNLOAD_PASSWORD || 'Iit7065@';
+    const correctPassword = process.env.DOWNLOAD_PASSWORD;
+    
+    console.log('Received password:', password);
+    console.log('Expected password:', correctPassword);
+    console.log('Match:', password === correctPassword);
+
+    if (!correctPassword) {
+      return res.status(500).json({ error: 'Password not configured on server' });
+    }
 
     if (password !== correctPassword) {
       return res.status(401).json({ error: 'Invalid password' });
@@ -48,6 +56,6 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('Download error:', error);
-    return res.status(500).json({ error: 'Server error' });
+    return res.status(500).json({ error: 'Server error', details: error.message });
   }
 }
